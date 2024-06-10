@@ -92,7 +92,7 @@ if st.button("Generar Documento"):
     output_path = "Formulario_unico_desconocimiento_ult_4.docx"
 
     # Ruta del template
-    template_path = "template.docx"
+    template_path = "C:\Users\jorge.gomez\Desktop\Jorge Tano\Material apoyo Colombia\Objeciones de compras\template.docx"
 
     # Crear el documento y obtener los bytes
     doc_file = create_document(data, template_path, output_path)
