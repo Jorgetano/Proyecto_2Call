@@ -63,11 +63,9 @@ for i in range(num_transacciones):
     transacciones.append((fecha, nombre_comercio, monto))
     monto_total += monto  # Sumar el monto a la variable de suma total
 
-# Mostrar la suma total de los montos
-
 # Observaciones
-st.header("IV. Observations (Observaciones)")
-observaciones = st.text_area("OBSERVACIONES")
+st.header("IV. Observaciones")
+observaciones = st.text_area("Observaciones")
 
 # Botón para generar el documento
 if st.button("Generar Documento"):
@@ -90,18 +88,14 @@ if st.button("Generar Documento"):
         data[f"NombreComercio{a}"] = nombre_comercio
         data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
 
+    # Ruta de salida del documento
+    output_path = "Formulario_unico_desconocimiento_ult_4.docx"
 
-    if transacciones:
-        st.header("Detalles de las Transacciones Ingresadas")
-        for i, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
-            st.write(f"**Transacción {i}:**")
-            st.write(f"Fecha: {fecha}")
-            st.write(f"Nombre del Comercio: {nombre_comercio}")
-            st.write(f"Monto: {monto_total_label} {monto:.2f}")
+    # Ruta del template
+    template_path = "template.docx"
 
-    # output_path ="C:/Users/jorge.gomez/Desktop/Jorge Tano/Material apoyo Colombia/Objeciones de compras/Formulario único desconocimiento ult 4.docx"
-    # template_path ="C:/Users/jorge.gomez/Desktop/Jorge Tano/Material apoyo Colombia/Objeciones de compras/template.docx"
-     doc_file = create_document(data, template_path, output_path)
+    # Crear el documento y obtener los bytes
+    doc_file = create_document(data, template_path, output_path)
     
-    # st.success(f"Documento actualizado y guardado como {output_path}")
-    st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario único desconocimiento ult 4.docx")
+    # Descargar el documento generado
+    st.download_button(label="Descargar Documento", data=doc_file, file_name=output_path)
