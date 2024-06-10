@@ -99,7 +99,7 @@ if st.button("Generar Documento"):
             st.write(f"Nombre del Comercio: {nombre_comercio}")
             st.write(f"Monto: {monto_total_label} {monto:.2f}")
 
-    output_path = "C:/Users/jorge/Documents/Python/static/datasets/Formulario único desconocimiento ult 4.docx"
+    output_path = "C:/Users/jorge.gomez/Desktop/Jorge Tano/Material apoyo Colombia/Objeciones de compras/Formulario único desconocimiento ult 4.docx"
     template_path = "C:/Users/jorge/Documents/Python/static/datasets/template.docx"
     doc_file = create_document(data, template_path, output_path)
     
