@@ -103,5 +103,5 @@ if st.button("Generar Documento"):
     # template_path = "C:/Users/jorge.gomez/Desktop/Jorge Tano/Material apoyo Colombia/Objeciones de compras/template.docx"
     # doc_file = create_document(data, template_path, output_path)
     
-    st.success(f"Documento actualizado y guardado como {output_path}")
+    # st.success(f"Documento actualizado y guardado como {output_path}")
     st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario único desconocimiento ult 4.docx")
