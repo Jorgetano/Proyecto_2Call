@@ -2,7 +2,6 @@ import streamlit as st
 from docx import Document
 from datetime import datetime
 from io import BytesIO
-import requests
 
 # Función para reemplazar los marcadores de posición en el documento
 def replace_placeholder(doc, placeholder, replacement):
@@ -68,49 +67,45 @@ for i in range(num_transacciones):
 st.header("IV. Observations (Observaciones)")
 observaciones = st.text_area("OBSERVACIONES")
 
+# Subir la plantilla de Word
+st.header("Subir Plantilla de Word")
+template_file = st.file_uploader("Elige un archivo de plantilla de Word", type="docx")
+
 # Botón para generar el documento
 if st.button("Generar Documento"):
-    data = {
-        "{{Nombre}}": nombre,
-        "{{Tc}}": tc,
-        "Titular": tt_tarjeta,
-        "{{Direccin}}": direccion,
-        "Direccion": direccion,
-        "Fecha actual": fecha_actual,
-        "{{Correo}}": correo,
-        "{{Telefono}}": telefono,
-        "{{Rut}}": rut,
-        "Numero TRX": str(num_transacciones),
-        "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
-        "{{Observaciones}}": observaciones
-    }   
-    for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
-        data[f"Fecha{a}"] = fecha
-        data[f"NombreComercio{a}"] = nombre_comercio
-        data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
-
-    if transacciones:
-        st.header("Detalles de las Transacciones Ingresadas")
-        for i, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
-            st.write(f"**Transacción {i}:**")
-            st.write(f"Fecha: {fecha}")
-            st.write(f"Nombre del Comercio: {nombre_comercio}")
-            st.write(f"Monto: {monto_total_label} {monto:.2f}")
-
-    # URL de la plantilla de Word en la nube
-    template_url = "https://docs.google.com/document/d/1cRkoQKLDheyQRHBsecgnrEgY6hVGYgmn/edit?usp=sharing&ouid=117533309868492933256&rtpof=true&sd=true"
-    
-    try:
-        response = requests.get(template_url)
-        response.raise_for_status()  # Check for HTTP errors
+    if template_file is not None:
+        template_bytes = template_file.read()
         
-        # Verifica si el contenido descargado es correcto
-        if response.headers['Content-Type'] != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-            st.error("El archivo descargado no es un archivo de Word válido.")
-        else:
-            template_bytes = response.content
-            doc_file = create_document(data, template_bytes)
-            st.success("Documento actualizado y listo para descargar.")
-            st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error al descargar la plantilla: {e}")
+        data = {
+            "{{Nombre}}": nombre,
+            "{{Tc}}": tc,
+            "Titular": tt_tarjeta,
+            "{{Direccin}}": direccion,
+            "Direccion": direccion,
+            "Fecha actual": fecha_actual,
+            "{{Correo}}": correo,
+            "{{Telefono}}": telefono,
+            "{{Rut}}": rut,
+            "Numero TRX": str(num_transacciones),
+            "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
+            "{{Observaciones}}": observaciones
+        }   
+        for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
+            data[f"Fecha{a}"] = fecha
+            data[f"NombreComercio{a}"] = nombre_comercio
+            data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
+
+        if transacciones:
+            st.header("Detalles de las Transacciones Ingresadas")
+            for i, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
+                st.write(f"**Transacción {i}:**")
+                st.write(f"Fecha: {fecha}")
+                st.write(f"Nombre del Comercio: {nombre_comercio}")
+                st.write(f"Monto: {monto_total_label} {monto:.2f}")
+
+        doc_file = create_document(data, template_bytes)
+        
+        st.success("Documento actualizado y listo para descargar.")
+        st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
+    else:
+        st.error("Por favor, sube una plantilla de Word.")
