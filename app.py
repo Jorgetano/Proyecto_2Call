@@ -67,14 +67,14 @@ for i in range(num_transacciones):
 st.header("IV. Observations (Observaciones)")
 observaciones = st.text_area("OBSERVACIONES")
 
-# Subir la plantilla de Word
-st.header("Subir Plantilla de Word")
-template_file = st.file_uploader("Elige un archivo de plantilla de Word", type="docx")
-
 # Botón para generar el documento
 if st.button("Generar Documento"):
-    if template_file is not None:
-        template_bytes = template_file.read()
+    # Ruta al archivo de plantilla en el repositorio
+    template_path = "/static/datasets/template.docx"
+
+    try:
+        with open(template_path, "rb") as template_file:
+            template_bytes = template_file.read()
         
         data = {
             "{{Nombre}}": nombre,
@@ -89,7 +89,7 @@ if st.button("Generar Documento"):
             "Numero TRX": str(num_transacciones),
             "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
             "{{Observaciones}}": observaciones
-        }   
+        }
         for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
             data[f"Fecha{a}"] = fecha
             data[f"NombreComercio{a}"] = nombre_comercio
@@ -107,5 +107,7 @@ if st.button("Generar Documento"):
         
         st.success("Documento actualizado y listo para descargar.")
         st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
-    else:
-        st.error("Por favor, sube una plantilla de Word.")
+    except FileNotFoundError:
+        st.error("No se encontró la plantilla de Word en el repositorio.")
+    except Exception as e:
+        st.error(f"Error al generar el documento: {e}")
