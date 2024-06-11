@@ -99,10 +99,18 @@ if st.button("Generar Documento"):
 
     # URL de la plantilla de Word en la nube
     template_url = "https://github.com/Jorgetano/Proyecto_2Call/blob/main/static/datasets/template.docx"
-    response = requests.get(template_url)
-    template_bytes = response.content
     
-    doc_file = create_document(data, template_bytes)
-    
-    st.success("Documento actualizado y listo para descargar.")
-    st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
+    try:
+        response = requests.get(template_url)
+        response.raise_for_status()  # Check for HTTP errors
+        
+        # Verifica si el contenido descargado es correcto
+        if response.headers['Content-Type'] != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            st.error("El archivo descargado no es un archivo de Word válido.")
+        else:
+            template_bytes = response.content
+            doc_file = create_document(data, template_bytes)
+            st.success("Documento actualizado y listo para descargar.")
+            st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error al descargar la plantilla: {e}")
