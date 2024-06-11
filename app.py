@@ -98,7 +98,7 @@ if st.button("Generar Documento"):
             st.write(f"Monto: {monto_total_label} {monto:.2f}")
 
     # URL de la plantilla de Word en la nube
-    template_url = "https://github.com/Jorgetano/Proyecto_2Call/blob/main/static/datasets/template.docx"
+    template_url = "https://docs.google.com/document/d/1cRkoQKLDheyQRHBsecgnrEgY6hVGYgmn/edit?usp=sharing&ouid=117533309868492933256&rtpof=true&sd=true"
     
     try:
         response = requests.get(template_url)
