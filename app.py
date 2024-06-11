@@ -70,7 +70,7 @@ observaciones = st.text_area("OBSERVACIONES")
 # Botón para generar el documento
 if st.button("Generar Documento"):
     # Ruta al archivo de plantilla en el repositorio
-    template_path = "/static/datasets/template.docx"
+    template_path = "static/datasets/template.docx"
 
     try:
         with open(template_path, "rb") as template_file:
