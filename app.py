@@ -2,6 +2,7 @@ import streamlit as st
 from docx import Document
 from datetime import datetime
 from io import BytesIO
+import requests
 
 # Función para reemplazar los marcadores de posición en el documento
 def replace_placeholder(doc, placeholder, replacement):
@@ -16,12 +17,11 @@ def replace_placeholder(doc, placeholder, replacement):
                 replace_placeholder(cell, placeholder, replacement)
 
 # Función para generar el documento de Word
-def create_document(data, template_path, output_path):
-    doc = Document(template_path)
+def create_document(data, template_bytes):
+    doc = Document(BytesIO(template_bytes))
     for placeholder, replacement in data.items():
         replace_placeholder(doc, placeholder, replacement)
     
-    doc.save(output_path)
     output = BytesIO()
     doc.save(output)
     output.seek(0)
@@ -54,7 +54,6 @@ else:
 num_transacciones = st.number_input("Cantidad de transacciones reclamadas", min_value=1, max_value=15, step=1)
 transacciones = []
 monto_total = 0.0  # Variable para sumar los montos
-
 
 for i in range(num_transacciones):
     fecha = st.text_input(f"Fecha (dd/mm/aa) - Transacción {i+1}")
@@ -90,7 +89,6 @@ if st.button("Generar Documento"):
         data[f"NombreComercio{a}"] = nombre_comercio
         data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
 
-
     if transacciones:
         st.header("Detalles de las Transacciones Ingresadas")
         for i, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
@@ -99,9 +97,12 @@ if st.button("Generar Documento"):
             st.write(f"Nombre del Comercio: {nombre_comercio}")
             st.write(f"Monto: {monto_total_label} {monto:.2f}")
 
-    output_path ="C:/Users/jorge.gomez/Desktop/Jorge Tano/Material apoyo Colombia/Objeciones de compras/Formulario único desconocimiento ult 4.docx"
-    template_path ="C:/Users/jorge.gomez/Desktop/Jorge Tano/Material apoyo Colombia/Objeciones de compras/template.docx"
-    doc_file = create_document(data, template_path, output_path)
+    # URL de la plantilla de Word en la nube
+    template_url = "https://github.com/Jorgetano/Proyecto_2Call/blob/main/static/datasets/template.docx"
+    response = requests.get(template_url)
+    template_bytes = response.content
     
-    st.success(f"Documento actualizado y guardado como {output_path}")
-    st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario único desconocimiento ult 4.docx")
+    doc_file = create_document(data, template_bytes)
+    
+    st.success("Documento actualizado y listo para descargar.")
+    st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
