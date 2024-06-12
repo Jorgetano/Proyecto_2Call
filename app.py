@@ -76,7 +76,7 @@ if st.button("Generar Documento"):
         with open(template_path, "rb") as template_file:
             template_bytes = template_file.read()
 
-     if not transacciones:
+ if not transacciones:
             for table in doc.tables:
                 for row in table.rows:
                     for cell in row.cells:
