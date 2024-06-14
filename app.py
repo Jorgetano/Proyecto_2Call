@@ -140,7 +140,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
         
         st.success("Documento actualizado y listo para descargar.")
         st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
-        st.write(f"Cliente desconoce ({num_transacciones} transacciones), Correo: {correo}, Teléfono: {telefono}")
+        st.write(f"Cliente desconoce {num_transacciones} compras según detalle de archivo. Correo: {correo} / Teléfono: {telefono}")
 
     except FileNotFoundError:
         st.error("No se encontró la plantilla de Word en el repositorio.")
