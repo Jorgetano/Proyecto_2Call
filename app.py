@@ -93,7 +93,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "{{Rut}}": rut,
             "Numero TRX": str(num_transacciones),
             "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
-            "{{Observaciones}}": observaciones
+            "{{Number}}": observaciones
         }
         for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
             data[f"Fecha{a}"] = fecha
