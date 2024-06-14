@@ -61,14 +61,12 @@ for i in range(num_transacciones):
     transacciones.append((fecha, nombre_comercio, monto))
     monto_total += monto  # Sumar el monto a la variable de suma total
 
-# Mostrar la suma total de los montos
-
 # Observaciones
 st.header("IV. Observations (Observaciones)")
 observaciones = st.text_area("OBSERVACIONES")
 
-# Botón para generar el documento
-if st.button("Generar Documento"):
+# Generar el documento automáticamente
+if nombre and tc and direccion and correo and telefono and rut and num_transacciones > 0:
     # Ruta al archivo de plantilla en el repositorio
     template_path = "static/datasets/template.docx"
 
@@ -95,14 +93,6 @@ if st.button("Generar Documento"):
             data[f"NombreComercio{a}"] = nombre_comercio
             data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
 
-        if transacciones:
-            st.header("Detalles de las Transacciones Ingresadas")
-            for i, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
-                st.write(f"**Transacción {i}:**")
-                st.write(f"Fecha: {fecha}")
-                st.write(f"Nombre del Comercio: {nombre_comercio}")
-                st.write(f"Monto: {monto_total_label} {monto:.2f}")
-
         doc_file = create_document(data, template_bytes)
         
         st.success("Documento actualizado y listo para descargar.")
@@ -111,3 +101,5 @@ if st.button("Generar Documento"):
         st.error("No se encontró la plantilla de Word en el repositorio.")
     except Exception as e:
         st.error(f"Error al generar el documento: {e}")
+else:
+    st.info("Por favor, complete todos los campos requeridos para generar el documento.")
