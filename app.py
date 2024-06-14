@@ -45,10 +45,7 @@ fecha_actual = datetime.now().strftime("%d/%m/%Y")
 # Detalle de transacciones reclamadas
 st.header("III. Detalle Transacciones Reclamadas (Transaction Details)")
 moneda = st.selectbox("Moneda para la suma total", ["Pesos", "Dólares"])
-if moneda == "Dólares":
-    monto_total_label = "USD"
-else:
-    monto_total_label = "$"
+monto_total_label = "USD" if moneda == "Dólares" else "$"
     
 num_transacciones = st.number_input("Cantidad de transacciones reclamadas", min_value=1, max_value=15, step=1)
 transacciones = []
@@ -74,27 +71,20 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
         with open(template_path, "rb") as template_file:
             template_bytes = template_file.read()
 
-        if not transacciones:  # Comprueba si no se ingresaron transacciones
-            # Si no hay transacciones, elimina el contenido de las celdas de las tablas
-            for table in doc.tables:
-                for row in table.rows:
-                    for cell in row.cells:
-                        cell.text = ""
-
         data = {
             "{{Nombre}}": nombre,
             "{{Tc}}": tc,
             "Titular": tt_tarjeta,
-            "{{Direccin}}": direccion,
-            "Direccion": direccion,
-            "Fecha actual": fecha_actual,
+            "{{Dirección}}": direccion,
             "{{Correo}}": correo,
             "{{Telefono}}": telefono,
             "{{Rut}}": rut,
             "Numero TRX": str(num_transacciones),
             "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
-            "{{Nombre}}": observaciones
+            "{{Observaciones}}": observaciones,
+            "Fecha actual": fecha_actual
         }
+
         for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
             data[f"Fecha{a}"] = fecha
             data[f"NombreComercio{a}"] = nombre_comercio
