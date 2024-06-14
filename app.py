@@ -73,7 +73,14 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
     try:
         with open(template_path, "rb") as template_file:
             template_bytes = template_file.read()
-        
+
+        if not transacciones:  # Comprueba si no se ingresaron transacciones
+            # Si no hay transacciones, elimina el contenido de las celdas de las tablas
+            for table in doc.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        cell.text = ""
+
         data = {
             "{{Nombre}}": nombre,
             "{{Tc}}": tc,
