@@ -82,18 +82,66 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "Numero TRX": str(num_transacciones),
             "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
             "{{Observaciones}}": observaciones,
-            "Fecha actual": fecha_actual
+            "Input_Observaciones": observaciones,
+            "Fecha actual": fecha_actual,
+            "Fecha-5": "",
+            "Fecha-4": "",
+            "Fecha-3": "",
+            "Fecha-2": "",
+            "Fecha-1": "",
+            "Fecha0": "",
+            "Fecha1": "",
+            "Fecha2": "",
+            "Fecha3": "",
+            "Fecha4": "",
+            "Fecha5": "",
+            "Fecha6": "",
+            "Fecha7": "",
+            "Fecha8": "",
+            "Fecha9": "",
+            "NombreComercio-5": "",
+            "NombreComercio-4": "",
+            "NombreComercio-3": "",
+            "NombreComercio-2": "",
+            "NombreComercio-1": "",
+            "NombreComercio0": "",
+            "NombreComercio1": "",
+            "NombreComercio2": "",
+            "NombreComercio3": "",
+            "NombreComercio4": "",
+            "NombreComercio5": "",
+            "NombreComercio6": "",
+            "NombreComercio7": "",
+            "NombreComercio8": "",
+            "NombreComercio9": "",
+            "Monto-5": "",
+            "Monto-4": "",
+            "Monto-3": "",
+            "Monto-2": "",
+            "Monto-1": "",
+            "Monto0": "",
+            "Monto1": "",
+            "Monto2": "",
+            "Monto3": "",
+            "Monto4": "",
+            "Monto5": "",
+            "Monto6": "",
+            "Monto7": "",
+            "Monto8": "",
+            "Monto9": ""
+            
         }
 
-        for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=1):
+        for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=-5):
             data[f"Fecha{a}"] = fecha
             data[f"NombreComercio{a}"] = nombre_comercio
             data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
-
         doc_file = create_document(data, template_bytes)
         
         st.success("Documento actualizado y listo para descargar.")
         st.download_button(label="Descargar Documento", data=doc_file, file_name="Formulario_unico_desconocimiento.docx")
+        st.write(f"Cliente desconoce ({num_transacciones} transacciones), Correo: {correo}, Teléfono: {telefono}")
+
     except FileNotFoundError:
         st.error("No se encontró la plantilla de Word en el repositorio.")
     except Exception as e:
