@@ -62,6 +62,14 @@ for i in range(num_transacciones):
 st.header("IV. Observations (Observaciones)")
 observaciones = st.text_area("OBSERVACIONES")
 
+def mostrar_script():
+    st.code("""
+    # Aquí va tu script que deseas mostrar
+    print('Hola, este es mi script mostrado en Streamlit')
+    """, language='python')
+
+
+
 # Generar el documento automáticamente
 if nombre and tc and direccion and correo and telefono and rut and num_transacciones > 0:
     # Ruta al archivo de plantilla en el repositorio
