@@ -26,9 +26,24 @@ def create_document(data, template_bytes):
     output.seek(0)
     return output
 
-# Título de la aplicación
+# Título del formulario
 st.title("Formulario Único Desconocimiento de Transacciones")
 
+# Inicializar el estado de sesión si no existe
+if 'show_text' not in st.session_state:
+    st.session_state.show_text = False
+
+# Función para alternar la visibilidad del texto
+def toggle_text():
+    st.session_state.show_text = not st.session_state.show_text
+
+# Botón para alternar la visibilidad del texto
+if st.button("Script"):
+    toggle_text()
+
+# Mostrar u ocultar el texto según el estado
+if st.session_state.show_text:
+    st.write("Colocar aquí tu lógica para desplazarte al inicio de la página.")
 # Ingresar datos personales
 st.header("I. Antecedentes personales")
 nombre = st.text_input("Nombre Tarjetahabiente (Cardholder name)")
