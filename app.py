@@ -43,7 +43,7 @@ if st.button("Script"):
 
 # Mostrar u ocultar el texto según el estado
 if st.session_state.show_text:
-    st.write("Don / Sra.…. de conformidad a lo dispuesto en la Ley 20.009, le informo que, para hacer efectiva su reclamación sobre aquellas operaciones respecto de las cuales desconoce haber otorgado su autorización o consentimiento, se solicita completar en su totalidad la Declaración Jurada que le enviaremos al correo electrónico que tiene registrado en nuestros sistemas y enviarla junto a su Cédula de Identidad, en un plazo de dos días
+    st.write("Don  Sra.…. de conformidad a lo dispuesto en la Ley 20.009, le informo que, para hacer efectiva su reclamación sobre aquellas operaciones respecto de las cuales desconoce haber otorgado su autorización o consentimiento, se solicita completar en su totalidad la Declaración Jurada que le enviaremos al correo electrónico que tiene registrado en nuestros sistemas y enviarla junto a su Cédula de Identidad, en un plazo de dos días
 
 Le sugerimos consultar con sus familiares o adicional si alguno realizó estas transacciones que usted está desconociendo.
 
