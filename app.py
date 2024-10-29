@@ -43,13 +43,13 @@ if st.button("Script"):
 
 # Mostrar u ocultar el texto según el estado
 if st.session_state.show_text:
-    st.write("Don Señora de conformidad a lo dispuesto en la Ley 20.009, le informo que, para hacer efectiva su reclamación sobre aquellas operaciones respecto de las cuales desconoce haber otorgado su autorización o consentimiento, se solicita completar en su totalidad la Declaración Jurada que le enviaremos al correo electrónico que tiene registrado en nuestros sistemas y enviarla junto a su Cédula de Identidad, en un plazo de dos días.                                                                                Le sugerimos consultar con sus familiares o adicional si alguno realizó estas transacciones que usted está desconociendo. Finalmente es necesario indicarle que se realiza una investigación interna de los desconocimientos realizados por los clientes, y en la medida que se cuente con evidencias de mecanismos robustos de seguridad, la empresa podrá hacer uso de las acciones legales que otorga la ley.")
+    st.write("Colocar aquí tu lógica para desplazarte al inicio de la página.")
 # Ingresar datos personales
 st.header("I. Antecedentes personales")
 nombre = st.text_input("Nombre Tarjetahabiente (Cardholder name)")
 tc = st.text_input("N° tarjeta (Cardholder number) 4 últimos dígitos")
 tt_tarjeta = st.selectbox("Tipo de tarjeta (Card type)", ["Titular", "Adicional", "Ambas"])
-direccion = st.text_input("Direccion (Address)")
+direccion = st.text_input("Dirección (Address)")
 correo = st.text_input("E-Mail")
 telefono = st.text_input("Celular (Cel Phone)")
 rut = st.text_input("RUT")
@@ -98,7 +98,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "{{Nombre}}": nombre,
             "{{Tc}}": tc,
             "Titular": tt_tarjeta,
-            "{{Dirección}}": direccion,
+            "{{Direccion}}": direccion,
             "{{Correo}}": correo,
             "{{Telefono}}": telefono,
             "{{Rut}}": rut,
