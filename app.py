@@ -104,8 +104,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "{{Rut}}": rut,
             "Numero TRX": str(num_transacciones),
             "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
-            "observacion": observaciones,
-            "{{observacion}}": observaciones,
+            "{{Observación}}": observaciones,
             "Input_Observaciones": observaciones,
             "Fecha actual": fecha_actual,
             "Fecha-5": "",
