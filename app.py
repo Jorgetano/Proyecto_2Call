@@ -98,7 +98,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "{{Nombre}}": nombre,
             "{{Tc}}": tc,
             "Titular": tt_tarjeta,
-            "{{Direccion}}": direccion,
+            "Direccion": direccion,
             "{{Correo}}": correo,
             "{{Telefono}}": telefono,
             "{{Rut}}": rut,
