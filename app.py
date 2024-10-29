@@ -55,7 +55,7 @@ telefono = st.text_input("Celular (Cel Phone)")
 rut = st.text_input("RUT")
 
 # Fecha de reclamo
-fecha_actual = datetime.now().strftime("%D/%M/%Y")
+fecha_actual = datetime.now().strftime("%d/%m/%Y")
 
 # Detalle de transacciones reclamadas
 st.header("III. Detalle Transacciones Reclamadas (Transaction Details)")
