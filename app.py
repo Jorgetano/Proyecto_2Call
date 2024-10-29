@@ -55,7 +55,7 @@ telefono = st.text_input("Celular (Cel Phone)")
 rut = st.text_input("RUT")
 
 # Fecha de reclamo
-fecha_actual = datetime.now().strftime("%d/%m/%Y")
+fecha_actual = datetime.now().strftime("%D/%M/%Y")
 
 # Detalle de transacciones reclamadas
 st.header("III. Detalle Transacciones Reclamadas (Transaction Details)")
@@ -67,7 +67,7 @@ transacciones = []
 monto_total = 0.0  # Variable para sumar los montos
 
 for i in range(num_transacciones):
-    fecha = st.text_input(f"Fecha (dd/mm/aa) - Transacción {i+0}")
+    fecha = st.text_input(f"Fecha (dd/mm/aa) - Transacción {i+1}")
     nombre_comercio = st.text_input(f"Nombre del Comercio - Transacción {i+1}")
     monto = st.number_input(f"Monto - Transacción {i+1}", min_value=0.0, format="%.2f")
     transacciones.append((fecha, nombre_comercio, monto))
