@@ -100,7 +100,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "Titular": tt_tarjeta,
             "Direccion": direccion,
             "{{Correo}}": correo,
-            "{{Teléfono}}": telefono,
+            "{{Telefono}}": telefono,
             "{{Rut}}": rut,
             "Numero TRX": str(num_transacciones),
             "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
