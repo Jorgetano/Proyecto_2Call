@@ -92,7 +92,7 @@ monto_total = 0.0  # Variable para sumar los montos
 for i in range(num_transacciones):
     fecha = st.text_input(f"Fecha (dd/mm/aa) - Transacción {i+1}")
     nombre_comercio = st.text_input(f"Nombre del Comercio - Transacción {i+1}")
-    monto = st.number_input(f"Monto - Transacción {i+1}", min_value=0.0, format="%.2f")
+    monto = st.number_input(f"Monto - Transacción {i+1}", min_value=0.0, format="%.2f", key=f"monto_{i}")
     transacciones.append((fecha, nombre_comercio, monto))
     monto_total += monto  # Sumar el monto a la variable de suma total
 
@@ -141,4 +141,5 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
         st.error(f"Error al generar el documento: {e}")
 else:
     st.info("Por favor, complete todos los campos requeridos para generar el documento.")
+
 
