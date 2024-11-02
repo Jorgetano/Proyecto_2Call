@@ -93,8 +93,8 @@ for i in range(num_transacciones):
     fecha = st.text_input(f"Fecha (dd/mm/aa) - Transacción {i+1}")
     nombre_comercio = st.text_input(f"Nombre del Comercio - Transacción {i+1}")
     
-    # Monto ingresado sin formato
-    monto = st.number_input(f"Monto - Transacción {i+1}", min_value=0.0, format="%.2f", key=f"monto_{i}")
+    # Asegurarse de que el formato es correcto
+    monto = st.number_input(f"Monto - Transacción {i+1} (sin puntos ni comas)", min_value=0.0, format="%.2f", key=f"monto_{i}")
     
     transacciones.append((fecha, nombre_comercio, monto))
     monto_total += monto  # Sumar el monto a la variable de suma total
@@ -121,7 +121,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "{{Teléfono}}": telefono,
             "{{Rut}}": rut,
             "Numero TRX": str(num_transacciones),
-            "{{Run}}": f"{monto_total_label} {monto_total:,.2f}",  # Concatenar la moneda y el monto total
+            "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Mostrar total correctamente
             "{{Observación}}": observaciones,
             "Input_Observaciones": observaciones,
             "Fecha actual": fecha_actual,
@@ -130,7 +130,7 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
         for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=-5):
             data[f"Fecha{a}"] = fecha
             data[f"NombreComercio{a}"] = nombre_comercio
-            data[f"Monto{a}"] = f"{monto_total_label} {monto:,.2f}"  # Formato correcto para los montos
+            data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"  # Formato correcto para los montos
 
         doc_file = create_document(data, template_bytes)
         
