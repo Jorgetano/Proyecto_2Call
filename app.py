@@ -68,7 +68,6 @@ if st.session_state.show_text:
         de las acciones legales que otorga la ley.
     """)
 
-
 st.header("I. Antecedentes personales")
 nombre = st.text_input("Nombre Tarjetahabiente (Cardholder name)")
 tc = st.text_input("N° tarjeta (Cardholder number) 4 últimos dígitos")
@@ -98,16 +97,8 @@ for i in range(num_transacciones):
     monto_total += monto  # Sumar el monto a la variable de suma total
 
 # Observaciones
-st.header("IV. Observations (Observaciones)")
+st.header("IV. Observaciones")
 observaciones = st.text_area("OBSERVACIONES")
-
-def mostrar_script():
-    st.code("""
-    # Aquí va tu script que deseas mostrar
-    print('Don / Sra.…. de conformidad a lo dispuesto en la Ley 20.009')
-    """, language='python')
-
-
 
 # Generar el documento automáticamente
 if nombre and tc and direccion and correo and telefono and rut and num_transacciones > 0:
@@ -127,62 +118,17 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
             "{{Teléfono}}": telefono,
             "{{Rut}}": rut,
             "Numero TRX": str(num_transacciones),
-            "{{Run}}": f"{monto_total_label} {monto_total:.2f}",  # Concatenar la moneda y el monto total
+            "{{Run}}": f"{monto_total_label} {monto_total:,.2f}",  # Concatenar la moneda y el monto total
             "{{Observación}}": observaciones,
             "Input_Observaciones": observaciones,
             "Fecha actual": fecha_actual,
-            "Fecha-5": "",
-            "Fecha-4": "",
-            "Fecha-3": "",
-            "Fecha-2": "",
-            "Fecha-1": "",
-            "Fecha0": "",
-            "Fecha1": "",
-            "Fecha2": "",
-            "Fecha3": "",
-            "Fecha4": "",
-            "Fecha5": "",
-            "Fecha6": "",
-            "Fecha7": "",
-            "Fecha8": "",
-            "Fecha9": "",
-            "NombreComercio-5": "",
-            "NombreComercio-4": "",
-            "NombreComercio-3": "",
-            "NombreComercio-2": "",
-            "NombreComercio-1": "",
-            "NombreComercio0": "",
-            "NombreComercio1": "",
-            "NombreComercio2": "",
-            "NombreComercio3": "",
-            "NombreComercio4": "",
-            "NombreComercio5": "",
-            "NombreComercio6": "",
-            "NombreComercio7": "",
-            "NombreComercio8": "",
-            "NombreComercio9": "",
-            "Monto-5": "",
-            "Monto-4": "",
-            "Monto-3": "",
-            "Monto-2": "",
-            "Monto-1": "",
-            "Monto0": "",
-            "Monto1": "",
-            "Monto2": "",
-            "Monto3": "",
-            "Monto4": "",
-            "Monto5": "",
-            "Monto6": "",
-            "Monto7": "",
-            "Monto8": "",
-            "Monto9": ""
-            
         }
 
         for a, (fecha, nombre_comercio, monto) in enumerate(transacciones, start=-5):
             data[f"Fecha{a}"] = fecha
             data[f"NombreComercio{a}"] = nombre_comercio
-            data[f"Monto{a}"] = f"{monto_total_label} {monto:.2f}"
+            data[f"Monto{a}"] = f"{monto_total_label} {monto:,.2f}"  # Formato correcto para los montos
+
         doc_file = create_document(data, template_bytes)
         
         st.success("Documento actualizado y listo para descargar.")
@@ -195,3 +141,4 @@ if nombre and tc and direccion and correo and telefono and rut and num_transacci
         st.error(f"Error al generar el documento: {e}")
 else:
     st.info("Por favor, complete todos los campos requeridos para generar el documento.")
+
